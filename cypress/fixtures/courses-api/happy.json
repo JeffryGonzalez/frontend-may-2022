@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": "62797b1a1823357feb3756ac",
+      "title": "Country Line Dancing",
+      "blurb": "Angular State Management shows you how to effectively manage state in an Angular application. We will learn API access, and sharing state across components and features.",
+      "category": "angular"
+    },
+    {
+      "id": "627994871823357feb3756b2",
+      "title": "Beginning Service Development",
+      "blurb": "Learn Beginning Service Development, including Docker, kubernetes, CI/CD, and designing good service topology.",
+      "category": "services"
+    }
+  ]
+}

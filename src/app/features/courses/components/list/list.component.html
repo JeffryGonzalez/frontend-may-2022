@@ -1,15 +1,14 @@
-<ul class="list-unstyled">
-  <li class="card" *ngFor="let course of courses$ | async">
+<ul class="list-unstyled" *ngIf="courses$ | async as courses">
+  <li class="card" *ngFor="let course of courses;index as idx" [attr.data-courses-list-item]="idx">
     <div class="card-header">
-      {{ course.title }}
+      <span [attr.data-courses-list-item-header]="idx">{{ course.title }}</span>
     </div>
     <div class="card-body">
       <div class="course-overview">
-        {{ course.title }} is training for
-        {{
-          course.category.substring(0, 1).toUpperCase() +
-            course.category.substring(1)
-        }}
+        <span [attr.data-courses-list-item-overview]="idx">
+          {{ course.title }} is training for {{ course.category | titlecase}}
+
+        </span>
       </div>
       <p>
         {{ course.blurb }}
@@ -17,12 +16,14 @@
     </div>
     <div class="card-footer" *ngrxLet="loggedIn$ as loggedIn">
       <a
+      [attr.data-course-list-item-enroll-link]="idx"
         *ngIf="loggedIn"
         class="btn btn-primary"
         [routerLink]="['../enroll', course.id]"
         >Enroll in {{ course.title }}</a
       >
       <a
+      [attr.data-course-list-item-login-link]="idx"
         *ngIf="!loggedIn"
         class="btn btn-success"
         (click)="login(course.id)"
