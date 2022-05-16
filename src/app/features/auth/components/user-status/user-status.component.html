@@ -5,6 +5,7 @@
   *ngrxLet="loggedIn$ as loggedIn"
 >
   <button
+  data-auth-logout-button
     *ngIf="loggedIn"
     type="button"
     class="btn btn-primary"
@@ -13,6 +14,7 @@
     Log Out {{ userName$ | async }}
   </button>
   <button
+  data-auth-login-button
     *ngIf="!loggedIn"
     type="button"
     class="btn btn-primary"
