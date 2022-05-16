@@ -1,0 +1,13 @@
+.card {
+  margin-bottom: 1rem;
+}
+
+.card-header {
+  font-weight: bolder;
+  font-size: xx-large;
+}
+
+.course-overview {
+  font-weight: bold;
+  font-size: large;
+}

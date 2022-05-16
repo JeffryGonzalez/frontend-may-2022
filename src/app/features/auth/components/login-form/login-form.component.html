@@ -1,0 +1,14 @@
+<form [formGroup]="form" (ngSubmit)="login()">
+  <div class="form-group">
+    <label for="userName">User Name</label>
+    <input class="form-control" formControlName="userName" id="userName" />
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" formControlName="password" id="password" />
+  </div>
+  <button type="submit" class="btn btn-primary">Log In</button>
+</form>
+<div class="" [hidden]="true">
+  <pre> {{ param$ | async | json }}</pre>
+</div>

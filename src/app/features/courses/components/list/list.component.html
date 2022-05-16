@@ -1,0 +1,34 @@
+<ul class="list-unstyled">
+  <li class="card" *ngFor="let course of courses$ | async">
+    <div class="card-header">
+      {{ course.title }}
+    </div>
+    <div class="card-body">
+      <div class="course-overview">
+        {{ course.title }} is training for
+        {{
+          course.category.substring(0, 1).toUpperCase() +
+            course.category.substring(1)
+        }}
+      </div>
+      <p>
+        {{ course.blurb }}
+      </p>
+    </div>
+    <div class="card-footer" *ngrxLet="loggedIn$ as loggedIn">
+      <a
+        *ngIf="loggedIn"
+        class="btn btn-primary"
+        [routerLink]="['../enroll', course.id]"
+        >Enroll in {{ course.title }}</a
+      >
+      <a
+        *ngIf="!loggedIn"
+        class="btn btn-success"
+        (click)="login(course.id)"
+        [routerLink]="['../enroll', course.id]"
+        >Sign In to Enroll Now!</a
+      >
+    </div>
+  </li>
+</ul>

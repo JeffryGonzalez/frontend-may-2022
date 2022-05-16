@@ -1,0 +1,47 @@
+<div *ngIf="model$ | async as model">
+  <div class="card">
+    <div class="card-header">
+      Enroll in <strong>{{ model.course.title }}</strong>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="submit(courseField.value, foci)">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input class="form-control" disabled value="{{ model.user }}" />
+        </div>
+        <div class="form-group">
+          <label for="dateOfCourse">Date of Course</label>
+          <select class="form-control" formControlName="dateOfCourse" #foci>
+            <option *ngFor="let d of model.dates" [value]="d.startDate">
+              {{ d.startDate | date }} - {{ d.endDate | date }} ({{
+                d.numberOfDays
+              }}
+              days)
+            </option>
+          </select>
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              dateOfCourse?.errors &&
+              (dateOfCourse?.touched || dateOfCourse?.dirty)
+            "
+          >
+            <p>Please select a date.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="course"> Course </label>
+          <input
+            disabled
+            class="form-control"
+            #courseField
+            value="{{ model.course.title }}"
+          />
+          <input type="hidden" formControlName="course" />
+        </div>
+        <button type="submit" class="btn btn-success">Enroll Now!</button>
+        <a [routerLink]="['courses']" class="btn btn-primary">Back to List</a>
+      </form>
+    </div>
+  </div>
+</div>

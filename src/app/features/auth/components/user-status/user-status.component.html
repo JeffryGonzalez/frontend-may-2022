@@ -1,0 +1,23 @@
+<div
+  class="btn-group"
+  role="group"
+  aria-label="Login Status"
+  *ngrxLet="loggedIn$ as loggedIn"
+>
+  <button
+    *ngIf="loggedIn"
+    type="button"
+    class="btn btn-primary"
+    (click)="requestLogout()"
+  >
+    Log Out {{ userName$ | async }}
+  </button>
+  <button
+    *ngIf="!loggedIn"
+    type="button"
+    class="btn btn-primary"
+    (click)="requestLogin()"
+  >
+    Log In
+  </button>
+</div>
