@@ -1,4 +1,4 @@
-<ul class="list-unstyled" *ngIf="courses$ | async as courses">
+<ul data-courses-list-component class="list-unstyled" *ngIf="courses$ | async as courses">
   <li class="card" *ngFor="let course of courses;index as idx" [attr.data-courses-list-item]="idx">
     <div class="card-header">
       <span [attr.data-courses-list-item-header]="idx">{{ course.title }}</span>
@@ -16,14 +16,14 @@
     </div>
     <div class="card-footer" *ngrxLet="loggedIn$ as loggedIn">
       <a
-      [attr.data-course-list-item-enroll-link]="idx"
+      [attr.data-courses-list-item-enroll-link]="idx"
         *ngIf="loggedIn"
         class="btn btn-primary"
         [routerLink]="['../enroll', course.id]"
         >Enroll in {{ course.title }}</a
       >
       <a
-      [attr.data-course-list-item-login-link]="idx"
+      [attr.data-courses-list-item-login-link]="idx"
         *ngIf="!loggedIn"
         class="btn btn-success"
         (click)="login(course.id)"

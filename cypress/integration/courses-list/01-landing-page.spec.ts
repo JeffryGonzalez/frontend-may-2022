@@ -1,3 +1,4 @@
+import { CourseListLocators as locators } from "./locators";
 describe('the courses list', () => {
   beforeEach(() => {
     cy.intercept('/api/course-catalog/courses/', {
@@ -18,25 +19,25 @@ describe('the courses list', () => {
   describe('the list items - not logged in', () => {
     describe('the first list item', () => {
       it('exists', () => {
-        cy.get('[data-courses-list-item="0"]').should('exist');
+        cy.get(locators.getCourseListItem("0")).should('exist');
       });
       it('should display the title from the API', () => {
-        cy.get('[data-courses-list-item-header="0"]').should(
+        cy.get(locators.getCourseListItemHeader("0")).should(
           'contain.text',
           'Country Line Dancing'
         );
       });
       it('should display the overview', () => {
-        cy.get('[data-courses-list-item-overview="0"]').should(
+        cy.get(locators.getCourseListOverview("0")).should(
           'contain.text',
           'Country Line Dancing is training for Angular'
         );
       });
       it('should display the log in link', () => {
-        cy.get('[data-course-list-item-login-link="0"]').should('exist');
+        cy.get(locators.getCourseListItemLoginLink('0')).should('exist');
       });
       it('should not display the enroll link', () => {
-        cy.get('[data-course-list-item-enroll-link="0"]').should('not.exist');
+        cy.get(locators.getCourseListItemEnrollLink('0')).should('not.exist');
       });
     });
 
@@ -49,14 +50,18 @@ describe('the courses list', () => {
 
   describe('list items - user logged in', () => {
     beforeEach(() => {
-
+      cy.visit('/courses/list');
+      cy.get(locators.getCourseListItemLoginLink("0")).click();
+      cy.get('[data-auth-user-name]').type('Brando');
+      cy.get('[data-auth-password').type('Taco Salad');
+      cy.get('button[type="submit"]').click();
     });
-  
-    it('should display the enroll link', () => {
 
+    it('should display the enroll link', () => {
+      cy.get(locators.getCourseListItemEnrollLink("0")).should('not.exist');
     });
     it('should not display the log in link', () => {
-
+      cy.get(locators.getCourseListItemLoginLink("0")).should('exist');
     });
   });
 });
