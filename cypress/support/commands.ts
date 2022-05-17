@@ -1,3 +1,27 @@
+declare namespace Cypress {
+  interface Chainable<Subject = any> {
+    loginUser(userName?: string, password?:string): typeof loginUser;
+    goToRoute(route:string):typeof goToRoute;
+    goToHome():typeof goToHome;
+  }
+}
+
+function goToHome() {
+  cy.goToRoute('home');
+}
+
+function goToRoute(route:string) {
+  cy.visit(route);
+}
+function loginUser(userName:string = 'Joe', password:string = 'wordpass') {
+      cy.get('[data-auth-user-name]').type(userName);
+      cy.get('[data-auth-password').type(password);
+      cy.get('button[type="submit"]').click();
+}
+
+Cypress.Commands.add('loginUser', loginUser);
+Cypress.Commands.add('goToRoute', goToRoute);
+Cypress.Commands.add('goToHome', goToHome);
 // ***********************************************
 // This example namespace declaration will help
 // with Intellisense and code completion in your

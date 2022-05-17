@@ -11,6 +11,12 @@ describe('the courses list', () => {
       },
     });
   });
+
+  // it('delete me', () => {
+  //   Object.keys(locators).forEach(key => {
+  //     console.log(locators[key]("99"));
+  //   })
+  // })
   it('should go to the default route', () => {
     cy.visit('/courses');
     cy.url().should('match', /\/courses\/list$/); // "/courses/list"
@@ -32,6 +38,7 @@ describe('the courses list', () => {
           'contain.text',
           'Country Line Dancing is training for Angular'
         );
+
       });
       it('should display the log in link', () => {
         cy.get(locators.getCourseListItemLoginLink('0')).should('exist');
@@ -53,9 +60,9 @@ describe('the courses list', () => {
     beforeEach(() => {
       cy.visit('/courses/list');
       cy.get(locators.getCourseListItemLoginLink("0")).click();
-      cy.get('[data-auth-user-name]').type('Brando');
-      cy.get('[data-auth-password').type('Taco Salad');
-      cy.get('button[type="submit"]').click();
+
+     cy.loginUser();
+     
 
     });
 
