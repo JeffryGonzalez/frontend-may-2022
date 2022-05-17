@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { RegistrationEntity } from '../reducers/registrations.reducer';
 
 export const RegistrationEvents = {
   registrationRequested: createAction(
@@ -14,7 +15,12 @@ export const RegistrationCommands = {
   ),
 };
 
-export const RegistrationDocuments = {};
+export const RegistrationDocuments = {
+    Registration: createAction(
+    '[courses] registration',
+    props<{ payload: RegistrationEntity}>()
+  )
+};
 
 export interface RegistrationRequest {
   courseId: string;

@@ -1,3 +1,5 @@
+
+import { RegistrationRequest } from '../../../src/app/features/courses/state/actions/registration.actions'
 const fixtureData = [
   { startDate: '2022-06-07T00:00:00',  display: 'Jun 7, 2022 - Jun 12, 2022 (5 days) ' },
   { startDate: '2022-08-01T00:00:00', display: 'Aug 1, 2022 - Aug 4, 2022 (3 days)' },
@@ -31,5 +33,61 @@ describe('enrolling for a course', () => {
       }
     );
   });
+
+  describe('submitting the enrollment - just look at the api call', () => {
+
+      beforeEach(() => {
+        // make up some crap.
+        cy.intercept('POST', '/api/registrations', {
+
+        }).as('registrationsApi')
+      })
+        it('shows them the enrollment', () => {
+          cy.get('[data-enrollment-date-list]').select(fixtureData[0].startDate);
+          cy.get('button[type="submit"]').click();
+
+          cy.wait('@registrationsApi').then((inter) => {
+            assert.isNotNull(inter.request.body);
+            const body = inter.request.body as RegistrationRequest;
+            console.log({body: inter.request.body});
+            assert.equal(body.courseId, 'course1');
+            // etc. etc.
+          });
+
+
+          cy.url().should('match', /\/courses\/registrations$/);
+
+        });
+
+  });
+
+  describe('the enrollment flow', () => {
+    beforeEach(() => {
+      // make up some crap.
+      cy.intercept('POST', '/api/registrations', {
+        statusCode: 201,
+        body: {
+          "registrationId": "registration1",
+          "courseId": "course1",
+          "courseName": "Country Line Dancing",
+          "dateOfCourse": "2022-06-07T00:00:00",
+          "user": "Sue",
+          "status": "PENDING"
+      }
+      })
+    })
+
+    it('shows them the enrollment', () => {
+      cy.get('[data-enrollment-date-list]').select(fixtureData[0].startDate);
+      cy.get('button[type="submit"]').click();
+
+
+
+
+      cy.url().should('match', /\/courses\/registrations$/);
+
+    });
+  })
 });
+
 

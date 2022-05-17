@@ -6,6 +6,7 @@ import {
 import * as fromCourses from './reducers/courses.reducer';
 import * as fromClasses from './reducers/classes.reducer';
 import * as fromNotifications from './reducers/feature-notification.reducer';
+import * as fromRegistrations from './reducers/registrations.reducer';
 
 import { CourseEnrollmentViewModel } from '../models';
 import { selectUserName } from '../../auth/state';
@@ -16,12 +17,14 @@ export interface CoursesState {
   courses: fromCourses.CoursesState;
   classes: fromClasses.ClassesState;
   notification: fromNotifications.FeatureNotificationsState;
+  registrations: fromRegistrations.RegistrationsState
 }
 
 export const reducers: ActionReducerMap<CoursesState> = {
   courses: fromCourses.reducer,
   classes: fromClasses.reducer,
   notification: fromNotifications.reducer,
+  registrations: fromRegistrations.reducer
 };
 
 const selectFeature = createFeatureSelector<CoursesState>(featureName);

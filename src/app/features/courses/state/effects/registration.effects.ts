@@ -1,7 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
+import { map, mergeMap, switchMap } from 'rxjs';
 import { selectCourseAndUserForRegistration } from '..';
 import {
   RegistrationCommands,
@@ -10,6 +11,16 @@ import {
 
 @Injectable()
 export class RegistrationEffects {
+  sendRegistration$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(RegistrationCommands.createRegistration),
+        mergeMap((a) => this.http.post('/api/registrations', a.payload))
+      );
+    },
+    { dispatch: false }
+  );
+
   createRegistrationRequest$ = createEffect(
     () => {
       return this.actions$.pipe(
@@ -27,5 +38,9 @@ export class RegistrationEffects {
     { dispatch: true }
   );
 
-  constructor(private actions$: Actions, private store: Store) {}
+  constructor(
+    private actions$: Actions,
+    private store: Store,
+    private http: HttpClient
+  ) {}
 }
