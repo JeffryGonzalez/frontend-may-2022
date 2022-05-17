@@ -1,5 +1,6 @@
 
 export const CourseListLocators = {
+  getCourseListEmtpyNotification:() => '[data-courses-list-no-courses-notification]',
   getCourseListItem: (id:string) => `[data-courses-list-item="${id}"]`,
   getCourseListItemHeader: (id:string) => buildMatcher("header", id),
   getCourseListOverview: (id:string) => buildMatcher("overview", id),

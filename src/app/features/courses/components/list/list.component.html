@@ -1,3 +1,8 @@
+<div
+*ngIf="(courses$ | async)?.length === 0"
+class="alert alert-info" data-courses-list-no-courses-notification>
+  <p>There are no upcoming courses!</p>
+</div>
 <ul data-courses-list-component class="list-unstyled" *ngIf="courses$ | async as courses">
   <li class="card" *ngFor="let course of courses;index as idx" [attr.data-courses-list-item]="idx">
     <div class="card-header">
