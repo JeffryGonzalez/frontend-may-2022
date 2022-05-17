@@ -3,6 +3,13 @@
 class="alert alert-info" data-courses-list-no-courses-notification>
   <p>There are no upcoming courses!</p>
 </div>
+
+<div
+*ngIf="hasNotification$ | async"
+class="alert alert-danger" data-courses-list-error-courses-notification>
+  <p>The Course List API is hosed. Sorry. Try Again?</p>
+  <button class="btn">Retry</button>
+</div>
 <ul data-courses-list-component class="list-unstyled" *ngIf="courses$ | async as courses">
   <li class="card" *ngFor="let course of courses;index as idx" [attr.data-courses-list-item]="idx">
     <div class="card-header">
