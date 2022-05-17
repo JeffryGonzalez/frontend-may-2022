@@ -16,12 +16,16 @@ import { UserIsAuthenticatedGuard } from '../auth/guards/auth.guard';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { RegistrationEffects } from './state/effects/registration.effects';
 import { DateDiffPipe } from 'src/app/pipes/date-diff.pipe';
+import { RegistrationsComponent } from './components/registrations/registrations.component';
 const routes: Routes = [
   {
     path: '',
     component: CoursesComponent,
     children: [
       { path: 'list', component: ListComponent },
+      {
+        path: 'registrations', component: RegistrationsComponent
+      },
       {
         path: 'enroll/:id',
         component: EnrollComponent,
@@ -38,6 +42,7 @@ const routes: Routes = [
     ListComponent,
     EnrollComponent,
     DateDiffPipe,
+    RegistrationsComponent,
   ],
   imports: [
     CommonModule,

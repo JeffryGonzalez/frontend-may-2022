@@ -31,6 +31,13 @@ const selectFeature = createFeatureSelector<CoursesState>(featureName);
 
 const selectCoursesBranch = createSelector(selectFeature, (f) => f.courses);
 const selectClassesBranch = createSelector(selectFeature, (f) => f.classes);
+
+const selectRegistrationsBranch = createSelector(selectFeature, f => f.registrations);
+
+
+const { selectAll: selectAllRegistrationEntities } = fromRegistrations.adapter.getSelectors(selectRegistrationsBranch);
+
+export const selectAllRegistrations = selectAllRegistrationEntities;
 const selectNotificationBranch = createSelector(
   selectFeature,
   (f) => f.notification

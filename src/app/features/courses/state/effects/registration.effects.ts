@@ -1,24 +1,39 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map, mergeMap, switchMap } from 'rxjs';
+import { map, mergeMap, switchMap, tap } from 'rxjs';
 import { selectCourseAndUserForRegistration } from '..';
 import {
   RegistrationCommands,
+  RegistrationDocuments,
   RegistrationEvents,
 } from '../actions/registration.actions';
+import { RegistrationEntity } from '../reducers/registrations.reducer';
 
 @Injectable()
 export class RegistrationEffects {
+
+  sendThemToTheRegistatrionPage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(RegistrationDocuments.Registration),
+      tap(() => this.router.navigate(['../courses/registrations']))
+    )
+  }, {dispatch: false})
+
   sendRegistration$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(RegistrationCommands.createRegistration),
-        mergeMap((a) => this.http.post('/api/registrations', a.payload))
+        mergeMap((a) => this.http.post<RegistrationEntity>('/api/registrations', a.payload)
+          .pipe(
+            map(payload => RegistrationDocuments.Registration({payload}))
+          )
+        )
       );
     },
-    { dispatch: false }
+    { dispatch: true }
   );
 
   createRegistrationRequest$ = createEffect(
@@ -41,6 +56,7 @@ export class RegistrationEffects {
   constructor(
     private actions$: Actions,
     private store: Store,
-    private http: HttpClient
+    private http: HttpClient,
+    private router:Router
   ) {}
 }

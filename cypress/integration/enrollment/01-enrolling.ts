@@ -39,6 +39,14 @@ describe('enrolling for a course', () => {
       beforeEach(() => {
         // make up some crap.
         cy.intercept('POST', '/api/registrations', {
+         body: {
+            "registrationId": "registration1",
+            "courseId": "course1",
+            "courseName": "Country Line Dancing",
+            "dateOfCourse": "2022-06-07T00:00:00",
+            "user": "Sue",
+            "status": "PENDING"
+        }
 
         }).as('registrationsApi')
       })
@@ -55,7 +63,7 @@ describe('enrolling for a course', () => {
           });
 
 
-          cy.url().should('match', /\/courses\/registrations$/);
+         // cy.url().should('match', /\/courses\/registrations$/);
 
         });
 
@@ -80,8 +88,6 @@ describe('enrolling for a course', () => {
     it('shows them the enrollment', () => {
       cy.get('[data-enrollment-date-list]').select(fixtureData[0].startDate);
       cy.get('button[type="submit"]').click();
-
-
 
 
       cy.url().should('match', /\/courses\/registrations$/);
