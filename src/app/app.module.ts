@@ -12,6 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthModule } from './features/auth/auth.module';
 import { AppAuthEffects } from './state/effects/auth.effects';
 
+
 @NgModule({
   declarations: [AppComponent, TopBarComponent],
   imports: [

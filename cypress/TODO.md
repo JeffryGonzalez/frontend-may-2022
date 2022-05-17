@@ -1,6 +1,6 @@
 # Stuff To Do
 
-Make the redirect work from the course list -> log in -> Course Enrollment.
-  
-  - Express it as a test *first*.
+- Make sure the "No courses" notification is not shown if there is an error.
+
+
 
