@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CourseEnrollmentViewModel } from '../../models';
 import { selectCourseEnrollmentViewModel } from '../../state';
@@ -23,7 +23,10 @@ export class EnrollComponent implements OnInit {
     private route: ActivatedRoute,
     private store: Store,
     private formBuilder: FormBuilder
-  ) {}
+  ) {
+
+
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {

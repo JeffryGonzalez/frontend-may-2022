@@ -9,6 +9,10 @@ import { CoursesCommands } from './state/actions/courses.actions';
   styleUrls: ['./courses.component.css'],
 })
 export class CoursesComponent {
+
+  
+
+
   constructor(store: Store) {
     store.dispatch(CoursesCommands.LoadCourses());
     store.dispatch(ClassesCommands.LoadClasses());

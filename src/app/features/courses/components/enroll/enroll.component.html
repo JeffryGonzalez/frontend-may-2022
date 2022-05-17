@@ -14,7 +14,7 @@
           <select data-enrollment-date-list class="form-control" formControlName="dateOfCourse" #foci>
             <option *ngFor="let d of model.dates" [value]="d.startDate">
               {{ d.startDate | date }} - {{ d.endDate | date }} ({{
-                d.numberOfDays
+                  d.endDate | dateDiff:(d.startDate)
               }}
               days)
             </option>

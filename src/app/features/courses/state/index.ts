@@ -15,29 +15,34 @@ export const featureName = 'featureCourses';
 export interface CoursesState {
   courses: fromCourses.CoursesState;
   classes: fromClasses.ClassesState;
-  notification: fromNotifications.FeatureNotificationsState
+  notification: fromNotifications.FeatureNotificationsState;
 }
 
 export const reducers: ActionReducerMap<CoursesState> = {
   courses: fromCourses.reducer,
   classes: fromClasses.reducer,
-  notification: fromNotifications.reducer
+  notification: fromNotifications.reducer,
 };
 
 const selectFeature = createFeatureSelector<CoursesState>(featureName);
 
 const selectCoursesBranch = createSelector(selectFeature, (f) => f.courses);
 const selectClassesBranch = createSelector(selectFeature, (f) => f.classes);
-const selectNotificationBranch = createSelector(selectFeature, f => f.notification);
+const selectNotificationBranch = createSelector(
+  selectFeature,
+  (f) => f.notification
+);
 
+export const selectNotificationNeeded = createSelector(
+  selectNotificationBranch,
+  (b) => b.hasErrors
+);
 
-export const selectNotificationNeeded = createSelector(selectNotificationBranch,
-  b=> b.hasErrors)
+export const selectNotificationMessage = createSelector(
+  selectNotificationBranch,
+  (b) => b.errorMessage
+);
 
-  export const selectNotificationMessage = createSelector(selectNotificationBranch,
-    b => b.errorMessage)
-
-    
 const {
   selectAll: selectAllCoursesArray,
   selectEntities: selectCourseEntities,
@@ -76,8 +81,13 @@ export const selectCourseEnrollmentViewModel = (courseId: string) =>
     selectAllClassesEntities,
     selectUserName,
     (courses, classes, user) => {
+      // talk about this...
       const course = courses[courseId];
-      const offerings = classes[courseId]?.offerings || [];
+      const offerings =
+        classes[courseId]?.offerings.map((offering) => ({
+          ...offering,
+          numberOfDays: daysBetween(offering.startDate, offering.endDate),
+        })) || [];
       if (course) {
         return {
           course: course,
@@ -89,3 +99,12 @@ export const selectCourseEnrollmentViewModel = (courseId: string) =>
       }
     }
   );
+
+function daysBetween(start: string, end: string): number {
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+
+  const diffInTime = endDate.getTime() - startDate.getTime();
+  const differenceInDays = diffInTime / (1000 * 3600 * 24);
+  return differenceInDays;
+}

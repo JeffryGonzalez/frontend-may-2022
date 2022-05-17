@@ -1,6 +1,6 @@
 const fixtureData = [
-  { startDate: '2022-06-07T00:00:00', endDate: '2022-06-10T00:00:00', display: 'Jun 7, 2022 - Jun 10, 2022 (4 days)' },
-  { startDate: '2022-08-01T00:00:00', endDate: '2022-08-04T00:00:00', display: 'Aug 1, 2022 - Aug 4, 2022 (3 days)' },
+  { startDate: '2022-06-07T00:00:00',  display: 'Jun 7, 2022 - Jun 12, 2022 (5 days) ' },
+  { startDate: '2022-08-01T00:00:00', display: 'Aug 1, 2022 - Aug 4, 2022 (3 days)' },
 ];
 
 describe('enrolling for a course', () => {
@@ -9,7 +9,7 @@ describe('enrolling for a course', () => {
       fixture: 'enrollment/courses.json',
     });
     cy.intercept('/api/scheduling/schedule', {
-      fixture: 'enrollment/schedule.json',
+      fixture: 'enrollment/schedule.json'
     });
 
     cy.goToRoute('/login');
@@ -27,7 +27,7 @@ describe('enrolling for a course', () => {
         cy.wrap(option).should(
           'contain.text',
           fixtureData[idx].display
-        );
+        ).should('have.value', fixtureData[idx].startDate);
       }
     );
   });

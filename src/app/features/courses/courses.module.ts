@@ -15,6 +15,7 @@ import { AuthModule } from '../auth/auth.module';
 import { UserIsAuthenticatedGuard } from '../auth/guards/auth.guard';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { RegistrationEffects } from './state/effects/registration.effects';
+import { DateDiffPipe } from 'src/app/pipes/date-diff.pipe';
 const routes: Routes = [
   {
     path: '',
@@ -32,7 +33,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [CoursesComponent, ListComponent, EnrollComponent],
+  declarations: [
+    CoursesComponent,
+    ListComponent,
+    EnrollComponent,
+    DateDiffPipe,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -47,6 +53,7 @@ const routes: Routes = [
     HttpClientModule,
     ReactiveFormsModule,
   ],
+
   exports: [RouterModule],
 })
 export class CoursesModule {}
