@@ -1,4 +1,4 @@
-import { CourseListLocators as locators } from "./locators";
+import { CourseListLocators as locators } from "../../utils/course-list-locators";
 describe('the courses list', () => {
   beforeEach(() => {
     cy.intercept('/api/course-catalog/courses/', {
@@ -39,11 +39,12 @@ describe('the courses list', () => {
       it('should not display the enroll link', () => {
         cy.get(locators.getCourseListItemEnrollLink('0')).should('not.exist');
       });
+
     });
 
     describe('the second list item', () => {
       it('exists', () => {
-        cy.get('[data-courses-list-item="1"]').should('exist');
+        cy.get(locators.getCourseListItem("0")).should('exist');
       });
     });
   });
@@ -55,13 +56,14 @@ describe('the courses list', () => {
       cy.get('[data-auth-user-name]').type('Brando');
       cy.get('[data-auth-password').type('Taco Salad');
       cy.get('button[type="submit"]').click();
+
     });
 
     it('should display the enroll link', () => {
-      cy.get(locators.getCourseListItemEnrollLink("0")).should('not.exist');
+      cy.get(locators.getCourseListItemLoginLink("0")).should('not.exist');
     });
     it('should not display the log in link', () => {
-      cy.get(locators.getCourseListItemLoginLink("0")).should('exist');
+      cy.get(locators.getCourseListItemEnrollLink("0")).should('exist');
     });
   });
 });
