@@ -58,7 +58,7 @@ const {
   selectEntities: selectCourseEntities,
 } = fromCourses.adapter.getSelectors(selectCoursesBranch);
 
-const { selectEntities: selectAllClassesEntities } =
+const { selectEntities: selectAllClassesEntities, selectAll: selectAllClassesArray } =
   fromClasses.adapter.getSelectors(selectClassesBranch);
 
 
@@ -120,19 +120,48 @@ function daysBetween(start: string, end: string): number {
   return differenceInDays;
 }
 
+const selectDateForRegistration = createSelector(
+  selectAllClassesArray,
+  (classes) => {
+    // this will stink.
+   // go through each class, and create a new item in an array with the id, the startDate, and the endDate
+   // such that the id and startDate are the "unique" parts.
+    const x = classes.reduce((lhs: ClassDateInfo[], rhs) => {
+      let smooshed = rhs.offerings.map(r => ({ startDate: r.startDate, endDate: r.endDate}));
+      let newThing:ClassDateInfo[] =smooshed.map(s => ({
+        id: rhs.id,
+        startDate: s.startDate,
+        endDate: s.endDate
+      }))
+      return [
+        ...lhs,
+       ...newThing
 
+      ]
+    }, [])
+    return x;
+  }
+)
+
+interface ClassDateInfo {
+  id: string;
+  startDate: string;
+  endDate: string;
+}
 const selectRegistrationItemViewModels = createSelector(
   selectAllRegistrationEntities,
-  (registrations) => {
+  selectDateForRegistration,
+  (registrations, endDate) => {
     return registrations.map(registration => {
+      const endDateInfo =  endDate.find(e => e.id === registration.courseId && e.startDate === registration.dateOfCourse)?.endDate;
       return {
         id: registration.registrationId,
         courseName: registration.courseName,
         startDate: registration.dateOfCourse,
-        endDate: registration.dateOfCourse,
+        endDate: endDateInfo,
         cancellationAllowed: true,
-        endTime: '',
-        startTime: '',
+        endTime: '5:00 PM ET',
+        startTime: '9:30 AM ET',
         invitationSent: false,
         status: registration.status
       } as RegistrationItemViewModel

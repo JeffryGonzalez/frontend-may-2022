@@ -2,7 +2,7 @@
   "data": [
     {
       "registrationId": "1",
-      "courseId": "62797b1a1823357feb3756ac",
+      "courseId": "course1",
       "courseName": "Country Line Dancing",
       "dateOfCourse": "2022-06-07T00:00:00",
       "user": "Sue",
@@ -10,7 +10,7 @@
     },
     {
       "registrationId": "2",
-      "courseId": "627994871823357feb3756b2",
+      "courseId": "course2",
       "courseName": "Beginning Service Development",
       "dateOfCourse": "2022-08-01T00:00:00",
       "user": "Sue",

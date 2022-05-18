@@ -1,10 +1,10 @@
 describe('the registrations landing page', () => {
   beforeEach(() => {
     cy.intercept('/api/course-catalog/courses/', {
-      fixture: 'courses-api/happy.json',
+      fixture: 'registrations/courses.json',
     });
     cy.intercept('/api/scheduling/schedule', {
-      fixture: 'enrollment/schedule.json'
+      fixture: 'registrations/schedule.json'
     });
 
     cy.intercept('/api/registrations', {

@@ -1,0 +1,10 @@
+{
+  "data": [
+    {
+      "id": "course1",
+      "title": "Country Line Dancing",
+      "blurb": "Angular State Management shows you how to effectively manage state in an Angular application. We will learn API access, and sharing state across components and features.",
+      "category": "angular"
+    }
+  ]
+}
