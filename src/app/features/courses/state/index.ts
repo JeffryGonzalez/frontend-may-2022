@@ -9,7 +9,7 @@ import * as fromNotifications from './reducers/feature-notification.reducer';
 import * as fromRegistrations from './reducers/registrations.reducer';
 
 import { CourseEnrollmentViewModel, RegistrationsViewModel, RegistrationItemViewModel } from '../models';
-import { selectUserName } from '../../auth/state';
+import { selectUserName } from 'auth-lib';
 import { RegistrationRequest } from './actions/registration.actions';
 export const featureName = 'featureCourses';
 

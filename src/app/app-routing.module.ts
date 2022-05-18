@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { LoginFormComponent } from './features/auth/components/login-form/login-form.component';
-import { UserIsNotAuthenticatedGuard } from './features/auth/guards/not-loggedin.guard';
+import { LoginFormComponent } from 'auth-lib';
+import { UserIsNotAuthenticatedGuard } from 'auth-lib';
 import { HomeComponent } from './features/home/home.component';
 
 const routes: Routes = [

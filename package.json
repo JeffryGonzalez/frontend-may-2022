@@ -27,6 +27,7 @@
     "@ngrx/entity": "^13.2.0",
     "@ngrx/store": "^13.2.0",
     "@ngrx/store-devtools": "^13.2.0",
+    "auth-lib": "file:../stuff/auth-lib-0.0.1.tgz",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

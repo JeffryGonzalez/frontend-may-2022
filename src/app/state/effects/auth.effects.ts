@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs';
 import {
   AuthEvents,
-} from 'src/app/features/auth/state/actions/auth.actions';
+} from 'auth-lib';
 
 @Injectable()
 export class AppAuthEffects {

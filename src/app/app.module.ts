@@ -9,7 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthModule } from './features/auth/auth.module';
+import { AuthModule } from 'auth-lib';
 import { AppAuthEffects } from './state/effects/auth.effects';
 
 

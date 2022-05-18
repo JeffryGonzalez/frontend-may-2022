@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectUserIsAuthenticated } from 'src/app/features/auth/state';
-import { AuthEvents } from 'src/app/features/auth/state/actions/auth.actions';
+import { selectUserIsAuthenticated } from 'auth-lib';
+import { AuthEvents } from 'auth-lib';
 import { selectAllCourses, selectNotificationMessage, selectNotificationNeeded } from '../../state';
 import { CoursesEntity } from '../../state/reducers/courses.reducer';
 
