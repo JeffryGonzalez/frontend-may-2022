@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+pre {
+  background-color: black;
+  color: green;
+  font-size: x-large;
+  border: 4px solid orange;
+}

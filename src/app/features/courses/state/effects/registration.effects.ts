@@ -14,24 +14,42 @@ import { RegistrationEntity } from '../reducers/registrations.reducer';
 
 @Injectable()
 export class RegistrationEffects {
-
-  sendThemToTheRegistatrionPage$ = createEffect(() => {
+  loadRegistrations$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(RegistrationDocuments.Registration),
-      tap(() => this.router.navigate(['../courses/registrations']))
-    )
-  }, {dispatch: false})
+      ofType(RegistrationCommands.loadRegistrations),
+      switchMap(() =>
+        this.http
+          .get<{ data: RegistrationEntity[] }>('/api/registrations')
+          .pipe(
+            map(({ data }) =>
+              RegistrationDocuments.Registrations({ payload: data })
+            )
+          )
+      )
+    );
+  });
 
+  sendThemToTheRegistatrionPage$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(RegistrationDocuments.Registration),
+        tap(() => this.router.navigate(['../courses/registrations']))
+      );
+    },
+    { dispatch: false }
+  );
 
   // this turns a createRegistation =>(send it to the api) => Registration
   sendRegistration$ = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(RegistrationCommands.createRegistration),
-        mergeMap((a) => this.http.post<RegistrationEntity>('/api/registrations', a.payload)
-          .pipe(
-            map(payload => RegistrationDocuments.Registration({payload}))
-          )
+        mergeMap((a) =>
+          this.http
+            .post<RegistrationEntity>('/api/registrations', a.payload)
+            .pipe(
+              map((payload) => RegistrationDocuments.Registration({ payload }))
+            )
         )
       );
     },
@@ -59,6 +77,6 @@ export class RegistrationEffects {
     private actions$: Actions,
     private store: Store,
     private http: HttpClient,
-    private router:Router
+    private router: Router
   ) {}
 }

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ClassesCommands } from './state/actions/classes.actions';
-import { CoursesCommands } from './state/actions/courses.actions';
+import { FeatureEvents } from './state/actions/feature.actions';
 
 @Component({
   selector: 'app-courses',
@@ -10,11 +9,10 @@ import { CoursesCommands } from './state/actions/courses.actions';
 })
 export class CoursesComponent {
 
-  
+
 
 
   constructor(store: Store) {
-    store.dispatch(CoursesCommands.LoadCourses());
-    store.dispatch(ClassesCommands.LoadClasses());
+      store.dispatch(FeatureEvents.FeatureEntered());
   }
 }
