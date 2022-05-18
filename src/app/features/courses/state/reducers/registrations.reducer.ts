@@ -9,21 +9,23 @@ export interface RegistrationEntity {
   courseName: string;
   dateOfCourse: string;
   user: string;
-  status: RegistrationStatus
+  status: RegistrationStatus;
 }
 
-export interface RegistrationsState extends EntityState<RegistrationEntity> {
-
-}
+export interface RegistrationsState extends EntityState<RegistrationEntity> {}
 
 export const adapter = createEntityAdapter<RegistrationEntity>({
-  selectId: (e) => e.courseId
+  selectId: (e) => e.courseId,
 });
 
 const initialState = adapter.getInitialState();
 
 export const reducer = createReducer(
   initialState,
-  on(RegistrationDocuments.Registration, (s,a) => adapter.upsertOne(a.payload, s))
+  on(RegistrationDocuments.Registrations, (s, a) =>
+    adapter.setAll(a.payload, s)
+  ),
+  on(RegistrationDocuments.Registration, (s, a) =>
+    adapter.upsertOne(a.payload, s)
+  )
 );
-
