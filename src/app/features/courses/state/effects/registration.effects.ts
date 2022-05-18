@@ -22,6 +22,8 @@ export class RegistrationEffects {
     )
   }, {dispatch: false})
 
+
+  // this turns a createRegistation =>(send it to the api) => Registration
   sendRegistration$ = createEffect(
     () => {
       return this.actions$.pipe(
