@@ -8,7 +8,7 @@ import * as fromClasses from './reducers/classes.reducer';
 import * as fromNotifications from './reducers/feature-notification.reducer';
 import * as fromRegistrations from './reducers/registrations.reducer';
 
-import { CourseEnrollmentViewModel } from '../models';
+import { CourseEnrollmentViewModel, RegistrationsViewModel } from '../models';
 import { selectUserName } from '../../auth/state';
 import { RegistrationRequest } from './actions/registration.actions';
 export const featureName = 'featureCourses';
@@ -118,3 +118,18 @@ function daysBetween(start: string, end: string): number {
   const differenceInDays = diffInTime / (1000 * 3600 * 24);
   return differenceInDays;
 }
+
+
+export const selectRegistrationListViewModel = createSelector(
+  selectAllRegistrations,
+  () => {
+    return {
+
+      registrations: [
+        { id: 'course1', courseName: 'Country Line Dancing', cancellationAllowed: true, status: 'Pending', startDate: '2022-08-01', endDate: '2022-08-03', startTime: '9:30 ET', endTime: '5:00 ET'},
+        { id: 'course2', courseName: 'Kubernetes for Smarties', cancellationAllowed: false, status: 'Approved', startDate: '2022-05-20', endDate: '2022-05-23', startTime: '9:30 ET', endTime: '5:00 ET'},
+
+      ]
+    } as RegistrationsViewModel;
+  }
+)

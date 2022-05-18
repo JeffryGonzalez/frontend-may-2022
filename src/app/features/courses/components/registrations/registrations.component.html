@@ -1,10 +1,26 @@
-<div class="card" *ngFor="let r of model$ | async">
-  <div class="card-header">
-    Registration for: {{ r.courseName }}
+<div *ngIf="model$ | async as model">
+
+  <div class="card" *ngFor="let r of model.registrations" >
+    <div class="card-header">
+      Registration for: {{ r.courseName }}
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info">
+        <p>{{ r.courseName }} is from {{ r.startDate | date:'mediumDate'}} - {{ r.endDate | date:'mediumDate'}}.</p>
+        <p>Class starts at {{ r.startTime}} and ends at {{r.endTime }}</p>
+        <p *ngIf="!r.invitationSent">You will receive a Teams invitation one week prior to the course.</p>
+        <p *ngIf="r.invitationSent">You Should have already received an invitation. For this.</p>
+      </div>
+
+
+    </div>
+    <div class="card-footer">
+      <p>Your reservation is currently {{ r.status }}. </p>
+      <button *ngIf="r.status !== 'Approved'" class="btn btn-sm btn-primary">Click here to check the status of your reservation.</button>
+      <button [disabled]="!r.cancellationAllowed" class="btn btn-sm btn-danger">Click here to cancel your reservation</button>
+      <p *ngIf="!r.cancellationAllowed">(It is too late to cancel this class. Contact the home office if you will not be able to attend.)</p>
+    </div>
   </div>
-  <div class="card-body">
-    Your registration is currently {{ r.status }}
-  </div>
+
+
 </div>
-
-
