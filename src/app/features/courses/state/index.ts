@@ -8,7 +8,7 @@ import * as fromClasses from './reducers/classes.reducer';
 import * as fromNotifications from './reducers/feature-notification.reducer';
 import * as fromRegistrations from './reducers/registrations.reducer';
 
-import { CourseEnrollmentViewModel, RegistrationsViewModel } from '../models';
+import { CourseEnrollmentViewModel, RegistrationsViewModel, RegistrationItemViewModel } from '../models';
 import { selectUserName } from '../../auth/state';
 import { RegistrationRequest } from './actions/registration.actions';
 export const featureName = 'featureCourses';
@@ -61,7 +61,7 @@ const {
 const { selectEntities: selectAllClassesEntities } =
   fromClasses.adapter.getSelectors(selectClassesBranch);
 
-export const selectAllCourses = selectAllCoursesArray;
+
 
 export const selectCourseById = (id: string) =>
   createSelector(selectCourseEntities, (entities) => entities[id]);
@@ -85,6 +85,7 @@ export const selectCourseAndUserForRegistration = (
     } as RegistrationRequest;
   });
 
+  export const selectAllCourses = selectAllCoursesArray;
 export const selectCourseEnrollmentViewModel = (courseId: string) =>
   createSelector(
     selectCourseEntities,
@@ -120,16 +121,32 @@ function daysBetween(start: string, end: string): number {
 }
 
 
+const selectRegistrationItemViewModels = createSelector(
+  selectAllRegistrationEntities,
+  (registrations) => {
+    return registrations.map(registration => {
+      return {
+        id: registration.registrationId,
+        courseName: registration.courseName,
+        startDate: registration.dateOfCourse,
+        endDate: registration.dateOfCourse,
+        cancellationAllowed: true,
+        endTime: '',
+        startTime: '',
+        invitationSent: false,
+        status: registration.status
+      } as RegistrationItemViewModel
+    })
+  }
+)
+
 export const selectRegistrationListViewModel = createSelector(
-  selectAllRegistrations,
-  () => {
+  selectRegistrationItemViewModels,
+  (registrations) => {
+    console.log(registrations);
     return {
 
-      registrations: [
-        { id: 'course1', courseName: 'Country Line Dancing', cancellationAllowed: true, status: 'Pending', startDate: '2022-08-01', endDate: '2022-08-03', startTime: '9:30 ET', endTime: '5:00 ET'},
-        { id: 'course2', courseName: 'Kubernetes for Smarties', cancellationAllowed: false, status: 'Approved', startDate: '2022-05-20', endDate: '2022-05-23', startTime: '9:30 ET', endTime: '5:00 ET'},
-
-      ]
+      registrations
     } as RegistrationsViewModel;
   }
 )

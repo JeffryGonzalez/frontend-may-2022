@@ -1,5 +1,6 @@
 import { Offering } from '../state/reducers/classes.reducer';
 import { CoursesEntity } from '../state/reducers/courses.reducer';
+import { RegistrationStatus } from '../state/types';
 
 export interface CourseEnrollmentViewModel {
   course: CoursesEntity;
@@ -20,7 +21,7 @@ export interface RegistrationItemViewModel {
   endDate: string;
   startTime: string;
   endTime: string;
-  status: string; // TODO, make a type for this.
+  status: RegistrationStatus
   cancellationAllowed: boolean;
   invitationSent: boolean;
 }

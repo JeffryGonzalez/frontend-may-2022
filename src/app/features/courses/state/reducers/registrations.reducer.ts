@@ -1,6 +1,7 @@
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, Action, on } from '@ngrx/store';
 import { RegistrationDocuments } from '../actions/registration.actions';
+import { RegistrationStatus } from '../types';
 
 export interface RegistrationEntity {
   registrationId: string;
@@ -8,7 +9,7 @@ export interface RegistrationEntity {
   courseName: string;
   dateOfCourse: string;
   user: string;
-  status: 'PENDING' | 'APPROVED' | 'DENIED'
+  status: RegistrationStatus
 }
 
 export interface RegistrationsState extends EntityState<RegistrationEntity> {

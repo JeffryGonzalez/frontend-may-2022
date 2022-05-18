@@ -16,7 +16,7 @@
     </div>
     <div class="card-footer">
       <p>Your reservation is currently {{ r.status }}. </p>
-      <button *ngIf="r.status !== 'Approved'" class="btn btn-sm btn-primary">Click here to check the status of your reservation.</button>
+      <button *ngIf="r.status !== 'APPROVED'" class="btn btn-sm btn-primary">Click here to check the status of your reservation.</button>
       <button [disabled]="!r.cancellationAllowed" class="btn btn-sm btn-danger">Click here to cancel your reservation</button>
       <p *ngIf="!r.cancellationAllowed">(It is too late to cancel this class. Contact the home office if you will not be able to attend.)</p>
     </div>
@@ -24,3 +24,6 @@
 
 
 </div>
+
+
+<pre> {{ model$ | async | json }}</pre>
