@@ -1,8 +1,10 @@
+
 declare namespace Cypress {
   interface Chainable<Subject = any> {
     loginUser(userName?: string, password?:string): typeof loginUser;
     goToRoute(route:string):typeof goToRoute;
     goToHome():typeof goToHome;
+    checkForDetectableAccessibilityIssues(options?: { elsToExclude: string[]}):typeof checkForDetectableAccessibilityIssues
   }
 }
 
@@ -19,9 +21,34 @@ function loginUser(userName:string = 'Joe', password:string = 'wordpass') {
       cy.get('button[type="submit"]').click();
 }
 
+function checkForDetectableAccessibilityIssues(options?: { elsToExclude: string[]}) {
+  const { elsToExclude = [] } = options || {};
+
+    cy.injectAxe();
+
+    cy.configureAxe({
+      // How to configure this: https://www.deque.com/axe/core-documentation/api-documentation/#api-name-axeconfigure
+      reporter: 'v2',
+      runOnly: {
+        type: 'tag',
+        values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
+      },
+    });
+
+    const axeContextParameter = {
+      exclude: elsToExclude,
+    };
+
+    // const axeCallback = logViolationsInTerminal;
+
+    cy.checkA11y(axeContextParameter, undefined);
+}
+
+Cypress.Commands.add('checkForDetectableAccessibilityIssues', checkForDetectableAccessibilityIssues)
 Cypress.Commands.add('loginUser', loginUser);
 Cypress.Commands.add('goToRoute', goToRoute);
 Cypress.Commands.add('goToHome', goToHome);
+
 // ***********************************************
 // This example namespace declaration will help
 // with Intellisense and code completion in your

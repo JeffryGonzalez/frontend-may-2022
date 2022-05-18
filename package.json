@@ -45,6 +45,9 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.17.0",
+    "axe-core": "^4.4.2",
+    "cypress": "latest",
+    "cypress-axe": "^0.14.0",
     "eslint": "^8.12.0",
     "eslint-plugin-ngrx": "^2.1.2",
     "eslint-plugin-unused-imports": "^2.0.0",
@@ -54,8 +57,7 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.6.2",
-    "cypress": "latest"
+    "typescript": "~4.6.2"
   },
   "volta": {
     "node": "16.13.1",

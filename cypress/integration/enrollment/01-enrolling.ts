@@ -94,6 +94,13 @@ describe('enrolling for a course', () => {
 
     });
   })
+
+  describe('accessibility', () => {
+
+    it('check for accessibility', () => {
+      cy.checkForDetectableAccessibilityIssues();
+    })
+  });
 });
 
 
